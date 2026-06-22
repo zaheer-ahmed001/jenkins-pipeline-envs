@@ -18,7 +18,7 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'main') {
                         env.DEPLOY_ENV = 'prod'
-                        env.PORT = '80'
+                        env.PORT = '8083'
                     } else if (env.BRANCH_NAME == 'staging') {
                         env.DEPLOY_ENV = 'staging'
                         env.PORT = '8082'
