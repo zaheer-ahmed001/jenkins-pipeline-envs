@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_DIR = '/home/ubuntu/jenkins-pipeline-envs'
+        PROJECT_DIR = "${env.WORKSPACE}"
     }
 
     stages {
