@@ -1,0 +1,31 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-prod
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    environment:
+      - ENVIRONMENT=prod
+    networks:
+      - prod-network
+
+  postgres:
+    image: postgres:15
+    container_name: postgres-prod
+    environment:
+      POSTGRES_USER: produser
+      POSTGRES_PASSWORD: prodpass
+      POSTGRES_DB: proddb
+    volumes:
+      - prod-pgdata:/var/lib/postgresql/data
+    networks:
+      - prod-network
+
+networks:
+  prod-network:
+    driver: bridge
+
+volumes:
+  prod-pgdata:
