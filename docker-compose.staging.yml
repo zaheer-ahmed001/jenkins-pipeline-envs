@@ -10,6 +10,9 @@ services:
       - ENVIRONMENT=staging
     networks:
       - staging-network
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./html/staging:/usr/share/nginx/html
 
   postgres:
     image: postgres:15
