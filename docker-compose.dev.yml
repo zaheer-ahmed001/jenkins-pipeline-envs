@@ -6,13 +6,11 @@ services:
       - "8081:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./html/dev:/usr/share/nginx/html
     environment:
       - ENVIRONMENT=dev
     networks:
       - dev-network
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./html/dev:/usr/share/nginx/html
 
   postgres:
     image: postgres:15
