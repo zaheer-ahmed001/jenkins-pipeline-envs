@@ -32,21 +32,6 @@ Each environment runs an isolated Docker Compose stack with:
 - Bash scripting
 - GitHub
 
-## Project Structure
-
-\`\`\`
-jenkins-pipeline-envs/
-├── docker-compose.dev.yml
-├── docker-compose.staging.yml
-├── docker-compose.prod.yml
-├── nginx/
-│   └── nginx.conf
-├── scripts/
-│   └── healthcheck.sh
-├── Jenkinsfile
-└── README.md
-\`\`\`
-
 ## How to Run Locally
 
 \`\`\`bash
