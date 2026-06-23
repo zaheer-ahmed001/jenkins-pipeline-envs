@@ -31,23 +31,23 @@ pipeline {
             }
         }
 
-        stage('Tear Down Old Stack') {
-            steps {
-                sh """
-                    cd ${PROJECT_DIR}
-                    docker compose -f docker-compose.${env.DEPLOY_ENV}.yml down --remove-orphans || true
-                """
-            }
-        }
+      stage('Tear Down Old Stack') {
+    steps {
+        sh """
+            cd ${PROJECT_DIR}
+            docker compose -p ${env.DEPLOY_ENV} -f docker-compose.${env.DEPLOY_ENV}.yml down --remove-orphans || true
+        """
+    }
+}
 
-        stage('Deploy Stack') {
-            steps {
-                sh """
-                    cd ${PROJECT_DIR}
-                    docker compose -f docker-compose.${env.DEPLOY_ENV}.yml up -d --build
-                """
-            }
-        }
+stage('Deploy Stack') {
+    steps {
+        sh """
+            cd ${PROJECT_DIR}
+            docker compose -p ${env.DEPLOY_ENV} -f docker-compose.${env.DEPLOY_ENV}.yml up -d --build
+        """
+    }
+}
 
         stage('Health Check') {
             steps {
@@ -70,11 +70,11 @@ pipeline {
             echo " ${env.DEPLOY_ENV} deployment successful!"
         }
         failure {
-            echo " Deployment failed! Tearing down..."
-            sh """
-                cd ${PROJECT_DIR}
-                docker compose -f docker-compose.${env.DEPLOY_ENV}.yml down || true
-            """
-        }
-    }
+    echo "❌ Deployment failed! Tearing down..."
+    sh """
+        cd ${PROJECT_DIR}
+        docker compose -p ${env.DEPLOY_ENV} -f docker-compose.${env.DEPLOY_ENV}.yml down || true
+    """
+}
+}
 }
